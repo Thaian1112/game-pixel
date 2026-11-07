@@ -1,0 +1,333 @@
+/* Frost Mage - giao diện */
+:root {
+  --bg: #070b18;
+  --ink: #e8f6ff;
+  --ice: #8fd8ff;
+  --hot: #ff6b8a;
+  color-scheme: dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #070b18;
+    --ink: #e8f6ff;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #070b18;
+  --ink: #e8f6ff;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Press Start 2P", monospace;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+}
+
+#stage {
+  position: relative;
+  width: min(
+    100vw,
+    calc((100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) * 16 / 9)
+  );
+  aspect-ratio: 16/9;
+  box-shadow:
+    0 0 0 2px #1d2c52,
+    0 0 60px #2a5cff33;
+  overflow: hidden;
+  background: #16213d;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+}
+
+#stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 55%, #00000088 100%),
+    repeating-linear-gradient(0deg, #0000 0 2px, #0000000d 2px 3px);
+}
+
+#hud {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.6% 2.2%;
+  font-size: clamp(7px, 1.7vw, 15px);
+  text-shadow: 2px 2px 0 #000a;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#hp {
+  color: var(--hot);
+  letter-spacing: 0.15em;
+}
+
+#cdw {
+  position: absolute;
+  left: 2.2%;
+  bottom: 3%;
+  width: 22%;
+  height: 1.6%;
+  background: #0008;
+  border: 1px solid #8fd8ff66;
+  z-index: 2;
+}
+
+#cd {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #5aa9e6, #fff);
+}
+
+#toast {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30%;
+  text-align: center;
+  font-size: clamp(9px, 2.6vw, 22px);
+  color: #fff;
+  text-shadow:
+    0 0 12px var(--ice),
+    2px 2px 0 #000;
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5%;
+  background: #050a1acc;
+  text-align: center;
+  z-index: 3;
+  padding: 4%;
+}
+
+#screen h1 {
+  margin: 0;
+  font-size: clamp(16px, 6vw, 52px);
+  color: #dff4ff;
+  text-shadow:
+    0 0 20px var(--ice),
+    4px 4px 0 #1d4fd8;
+}
+
+#screen p {
+  margin: 0;
+  font:
+    500 clamp(10px, 1.8vw, 16px)/1.6 system-ui,
+    sans-serif;
+  color: #b9d4ee;
+  max-width: 34em;
+}
+
+#screen .big {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(8px, 1.8vw, 14px);
+  color: var(--ice);
+}
+
+button {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(9px, 2vw, 16px);
+  padding: 0.9em 1.4em;
+  background: #2a5cff;
+  color: #fff;
+  border: 0;
+  box-shadow: 0 0.4em 0 #1636a0;
+  cursor: pointer;
+  animation: bl 1.2s steps(2) infinite;
+}
+
+button:active {
+  transform: translateY(0.25em);
+  box-shadow: 0 0.15em 0 #1636a0;
+}
+
+@keyframes bl {
+  50% {
+    background: #4c7bff;
+  }
+}
+
+#cdw {
+  display: none;
+}
+
+#skills {
+  position: absolute;
+  left: auto;
+  right: 2.2%;
+  bottom: 2.2%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8vw;
+  z-index: 4;
+}
+
+#pad {
+  position: absolute;
+  left: 2.2%;
+  bottom: 2.2%;
+  display: grid;
+  grid-template-columns: repeat(3, clamp(30px, 7vw, 58px));
+  grid-template-rows: repeat(3, clamp(30px, 7vw, 58px));
+  gap: 2px;
+  z-index: 4;
+}
+
+.pd {
+  padding: 0;
+  background: #0b1330d9;
+  border: 2px solid #3b6fd8;
+  color: #fff;
+  box-shadow: 0 0 0 1px #000;
+  animation: none;
+  font-size: clamp(12px, 2.8vw, 22px);
+  line-height: 1;
+  touch-action: none;
+}
+
+.pd:active,
+.pd.on {
+  background: #2a5cff;
+  transform: none;
+  box-shadow: 0 0 0 1px #000;
+}
+
+.sk {
+  position: relative;
+  width: clamp(30px, 6.2vw, 54px);
+  aspect-ratio: 1;
+  padding: 0;
+  background: #0b1330d9;
+  border: 2px solid #3b6fd8;
+  color: #fff;
+  box-shadow: 0 0 0 1px #000;
+  animation: none;
+  font-size: clamp(11px, 2.6vw, 22px);
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4%;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.sk:active {
+  transform: none;
+  box-shadow: 0 0 0 1px #000;
+}
+
+.sk.rdy {
+  border-color: #bfe8ff;
+  box-shadow: 0 0 10px #8fd8ffaa;
+}
+
+.sk b {
+  position: absolute;
+  left: 5%;
+  top: 4%;
+  font-size: clamp(5px, 1.1vw, 9px);
+  color: #8fd8ff;
+}
+
+.sk small {
+  font-size: clamp(4px, 0.9vw, 7px);
+  color: #b9d4ee;
+}
+
+.sk i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  background: #000b;
+  pointer-events: none;
+}
+
+.hide {
+  display: none !important;
+}
+
+/* ===== Giao diện nâng cấp: tiêu đề, đội hình, nút chiêu theo hệ ===== */
+#screen { background: radial-gradient(ellipse at center, #14205acc, #03060fee); }
+#screen h1 { background: linear-gradient(90deg, #8fd8ff, #fff, #ffb36b, #8fd8ff); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; filter: drop-shadow(0 0 14px #4c7bff); animation: sh 4s linear infinite; }
+@keyframes sh { to { background-position: 300% 0; } }
+#roster { display: flex; gap: 3%; }
+#roster div { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 8px; background: #0b1330cc; border: 2px solid #3b6fd8; }
+#roster img, .pt img { width: clamp(22px, 5vw, 44px); image-rendering: pixelated; }
+#roster small, .pt small { font-size: clamp(5px, 1vw, 9px); color: #b9d4ee; }
+#party { position: absolute; left: 2.2%; top: 9%; display: flex; gap: 1vw; z-index: 4; }
+.pt { padding: 3px; background: #0b1330d9; border: 2px solid #3b6fd8; box-shadow: 0 0 0 1px #000; animation: none; display: flex; flex-direction: column; align-items: center; touch-action: none; }
+.pt small { color: #ff6b8a; min-height: 1.2em; }
+.pt.cur { border-color: #ffd23a; box-shadow: 0 0 12px #ffd23aaa; transform: translateY(-2px); }
+.pt.dead { filter: grayscale(1); opacity: 0.4; }
+.pt:active { transform: none; }
+#skills { flex-wrap: wrap; max-width: 62%; }
+.sk[data-el="fire"] { border-color: #ff8a2a; }
+.sk[data-el="bolt"] { border-color: #ffe14d; }
+.sk[data-el="void"] { border-color: #a35bff; }
+.sk[data-el="holy"] { border-color: #ffd994; }
+.sk[data-el="arcane"] { border-color: #6ee7ff; }
+#toast { font-size: clamp(10px, 3.2vw, 28px); }
+
+/* ===== Chọn nhân vật / chọn màn, icon chiêu ===== */
+.sk img { width: 58%; image-rendering: pixelated; pointer-events: none; }
+#sel { position: absolute; inset: 0; z-index: 6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3%; background: radial-gradient(ellipse at center, #14205a, #03060f); text-align: center; padding: 3%; }
+#sel h2 { margin: 0; font-size: clamp(9px, 2.4vw, 20px); color: #dff4ff; text-shadow: 0 0 12px var(--ice); }
+#sel .grid { display: flex; flex-wrap: wrap; gap: 1.2vw; justify-content: center; max-width: 94%; }
+#sel .card { display: flex; flex-direction: column; align-items: center; gap: 3px; width: clamp(56px, 13vw, 112px); padding: 6px 4px; background: #0b1330e6; border: 2px solid var(--c, #3b6fd8); box-shadow: 0 0 0 1px #000; animation: none; font-size: clamp(6px, 1.2vw, 11px); line-height: 1.3; }
+#sel .card > img { width: clamp(22px, 5vw, 44px); image-rendering: pixelated; }
+#sel .card small { font-size: clamp(5px, 0.9vw, 8px); color: var(--c, #b9d4ee); }
+#sel .card span { display: flex; gap: 2px; }
+#sel .card span img { width: clamp(10px, 2vw, 18px); image-rendering: pixelated; }
+#sel .card.on { border-color: #ffd23a; box-shadow: 0 0 14px #ffd23aaa; transform: translateY(-3px); }
+#sel .card:active { transform: none; }
+
+#prog { position: absolute; left: 25%; right: 25%; top: 1.2%; height: 1.2%; background: #0008; border: 1px solid #8fd8ff88; z-index: 2; pointer-events: none; }
+#prog i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #5aa9e6, #fff); }
+#sel .card { width: clamp(50px, 11.5vw, 100px); }
+#sel .card:disabled { opacity: 0.35; filter: grayscale(1); cursor: default; }
+#sel .row { display: flex; gap: 3vw; }
+#sel p { margin: 0; font: 500 clamp(9px, 1.4vw, 13px) / 1.5 system-ui, sans-serif; color: #b9d4ee; max-width: 40em; }
+#sel .card span { flex-wrap: wrap; justify-content: center; }
+#sel .card span img { width: clamp(8px, 1.6vw, 14px); }

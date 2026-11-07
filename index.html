@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Frost Mage</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <canvas id="c" width="320" height="180"></canvas>
+      <div id="hud">
+        <span id="hp"></span><span id="sc">SCORE 0</span><span id="wv">WAVE 1</span>
+      </div>
+      <div id="cdw"><div id="cd"></div></div>
+      <div id="skills" class="hide"></div>
+      <div id="pad" class="hide">
+        <button class="pd" data-k="w" style="grid-area: 1/2">▲</button>
+        <button class="pd" data-k="a" style="grid-area: 2/1">◀</button>
+        <button class="pd" data-k="d" style="grid-area: 2/3">▶</button>
+        <button class="pd" data-k="s" style="grid-area: 3/2">▼</button>
+      </div>
+      <div id="toast"></div>
+      <div id="screen">
+        <h1 id="ti">FROST MAGE</h1>
+        <p class="big" id="sub">❄ ICE NOVA SURVIVAL ❄</p>
+        <p id="info">
+          Bấm START, chọn màn rồi chọn nhân vật (mỗi người chỉ dùng chiêu của 1 thuộc tính, riêng Chém ai cũng dùng được). Mỗi màn có số quái cố định; qua màn sẽ mở màn tiếp theo và thêm 1 chỗ trong đội. Màn 7 là trùm cuối, được dùng cả 6 nhân vật. Di chuyển bằng WASD / phím mũi tên hoặc chạm và kéo. Mỗi nhân vật có 4 chiêu tấn công riêng: dùng bằng nút bên dưới hoặc phím số 1 đến 7 theo thứ tự nút. Tab hoặc bấm chân dung để đổi nhân vật. Chém trúng quái đã đóng băng sẽ phá vỡ ngay!
+        </p>
+        <button id="go">START</button>
+      </div>
+    </div>
+    <script type="module" src="game.js"></script>
+  </body>
+</html>
